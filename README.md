@@ -1,10 +1,10 @@
-# Vue 3 + Vite
+# Galaxy Weather
 
 ```
 Desarrollo una aplicación web que permita obtener la información meteorológica
 actual o la previsión de varios días de cualquier localidad del mundo, haciendo uso de
 la API pública de:
-● OpenWeatherMap: https://openweathermap.org/
+ - OpenWeatherMap: https://openweathermap.org/
 ```
 
 ### Para comenzar
