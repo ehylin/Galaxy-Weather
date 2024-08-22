@@ -1,36 +1,39 @@
 <script setup>
 import { reactive, ref } from 'vue';
 
-const busqueda = reactive({
-  ciudad: '',
+const search = reactive({
+  city: '',
 });
 const error = ref('');
 
-const emit = defineEmits(['obtener-clima']);
+const emit = defineEmits(['get-weather']);
 
-const consultarClima = () => {
-  if (Object.values(busqueda).includes('')) {
+const getWeather = () => {
+
+   if (search.city.trim() === '') {
     error.value = 'La ciudad es obligatoria';
+    // Emit an empty search to clear previous data
+    emit('get-weather', { city: '' });
     return;
   }
 
   error.value = '';
-  emit('obtener-clima', busqueda);
+  emit('get-weather', search);
 };
 </script>
 
 <template>
   <form
     class="p-4"
-    @submit.prevent="consultarClima"
+    @submit.prevent="getWeather"
   >
     <div class="campo mb-4">
-      <label for="ciudad" class="block text-sm font-medium text-gray-700">Ciudad</label>
+      <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
       <input
         type="text"
-        id="ciudad"
+        id="city"
         placeholder="Ciudad"
-        v-model="busqueda.ciudad"
+        v-model="search.city"
         class="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm"
       />
     </div>
