@@ -8,7 +8,7 @@ const router = createRouter({
       path: '/',
       name: 'weather',
       component: Home,
-      props: { titulo: 'Clima' }
+      props: { title: 'Buscador de clima' }
     },    
   ]
 })

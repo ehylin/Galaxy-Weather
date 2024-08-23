@@ -1,3 +1,3 @@
 <template>
-    <h1 class="text-4xl font-extrabold text-slate-500"><slot></slot></h1>
+    <h1 class="py-2 lg:py-8 text-xl font-bold text-white"><slot></slot></h1>
 </template>
