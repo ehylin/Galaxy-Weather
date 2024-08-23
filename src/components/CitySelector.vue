@@ -13,11 +13,13 @@ const emit = defineEmits(['select-city']);
 const handleCityClick = (city) => {
   emit('select-city', city);
 };
+
+
 </script>
 
 <template>
   <div class="p-4">
-    <h2 class="text-lg font-bold">Localidades Consultadas</h2>
+    <h2 v-if="city in props.cities" class="text-lg font-bold">Localidades Consultadas</h2>
     <ul>
       <li v-for="city in props.cities" :key="city" class="my-2">
         <button @click="handleCityClick(city)" class="bg-gray-200 p-2 rounded w-full text-left">
