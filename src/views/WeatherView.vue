@@ -5,6 +5,7 @@
 
    
    const {  
+       clearCities,
        clearSavedCities, 
        getWeatherData,
         weather,
@@ -38,7 +39,11 @@
   onMounted(async () => {
     await loadSavedCities();
     await fetchWeather({ city: defaultCity });
-});
+  });
+
+  const handleClearCities = () => {
+    clearCities();
+  };
 </script>
 
 <template>
@@ -55,6 +60,7 @@
           <CitySelector 
             :cities="savedCities" 
             @select-city="handleCitySelect"  
+            @clear-cities="handleClearCities"
           />
         </div>
       </div>

@@ -21,7 +21,6 @@ describe('WeatherComponent', () => {
       },
     });
 
-    console.log(wrapper.text()); // Añadido para debug
 
     expect(wrapper.text()).toContain('Clima en: Test City');
     expect(wrapper.text()).toContain('Clear sky');

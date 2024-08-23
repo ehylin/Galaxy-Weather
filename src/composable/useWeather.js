@@ -6,6 +6,7 @@ export default function useWeather() {
     const loading = ref(false);
     const error = ref('');
     const savedCities = ref([]);
+   
 
     const getWeatherData = async ({ city }) => {
         const key = import.meta.env.VITE_API_KEY;
@@ -46,7 +47,10 @@ export default function useWeather() {
         savedCities.value = JSON.parse(localStorage.getItem('savedCities')) || [];
     };
 
-  
+    const clearCities = () => {
+        localStorage.removeItem('savedCities');
+        savedCities.value = [];
+    };
 
     const showWeather = computed(() => {
         return Object.keys(weather.value).length > 0;
@@ -55,6 +59,7 @@ export default function useWeather() {
     const formatTemperature = (temperature) => parseInt(temperature - 273.15);
 
     return {
+        clearCities,
         getWeatherData,
         weather,
         showWeather,
