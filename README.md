@@ -29,6 +29,12 @@ npm run dev
 En la app podras buscar por ciudad el clima que desees, y se mostrara la informacion del mismo, tu busqueda quedara guardada y podras volver a consultar las ciudades antes consultadas.
 ```
 
+### Rama develop
+```
+test de ejemplo
+Funcionalidad para borrar las ciudades
+```
+
 ### informacion personal
 ```
 Proyecto realizado como prueba tecnica
