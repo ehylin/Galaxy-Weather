@@ -27,48 +27,64 @@ const showWeather = computed(() => {
 </script>
 
 <template>
-  <div v-if="showWeather" class="p-4">
+  <div v-if="showWeather" class="px-6 py-4 bg-slate-100 border rounded-lg">
     <!-- Localidad consultada -->
-    <h2 class="text-xl font-bold">Clima en: {{ props.weather.name }}</h2>
+    <h2 class="text-xl font-bold lg:text-center">Clima en: {{ props.weather.name }}</h2>
+  
     
-  <!-- Estado meteorológico actual -->
-    <p class="text-lg">
-      <strong>Estado Meteorológico:</strong> 
-      <img :src="weatherIconUrl" alt="Weather Icon" class="inline-block w-12 h-12" />
-      {{ props.weather.weather[0].description }}
-    </p>
-    
+    <!-- Temperatura actual, máxima y mínima -->
+   <div class="flex justify-center items-center border-b border-gray-300 py-4">
+
+  <div class="flex flex-col items-center mr-12">
+    <img :src="weatherIconUrl" alt="Weather Icon" class="inline-block w-20 h-20" />
+    <p class="mt-2">{{ props.weather.weather[0].description }}</p>
+  </div>
+
+  <div>
     <!-- Temperatura actual -->
-    <p class="text-lg">
-      <strong>Temperatura Actual:</strong> {{ props.formatTemperature(props.weather.main.temp) }}°C
+    <p class="text-3xl">
+      {{ props.formatTemperature(props.weather.main.temp) }}°C
     </p>
-    
-    <!-- Temperatura máxima y mínima -->
-    <p class="text-lg">
-      <strong>Temperatura Máxima:</strong> {{ props.formatTemperature(props.weather.main.temp_max) }}°C
-    </p>
-    <p class="text-lg">
-      <strong>Temperatura Mínima:</strong> {{ props.formatTemperature(props.weather.main.temp_min) }}°C
-    </p>
-    
+
+    <!-- Temperatura mínima y máxima -->
+    <div class="text-lg mt-2">
+      <span>
+        <strong>&#8595;</strong> {{ props.formatTemperature(props.weather.main.temp_min) }}°C
+      </span>
+      <span class="ml-2">
+        <strong>&#8593;</strong> {{ props.formatTemperature(props.weather.main.temp_max) }}°C
+      </span>
+    </div>
+  </div>
+</div>
+
+
     <!-- Presión atmosférica -->
-    <p class="text-lg">
-      <strong>Presión Atmosférica:</strong> {{ props.weather.main.pressure }} hPa
-    </p>
+    <div class="flex items-center border-b border-gray-300 py-4">
+      <p class="text-lg">
+        <strong>Presión Atmosférica:</strong> {{ props.weather.main.pressure }} hPa
+      </p>
+    </div>
     
     <!-- Humedad relativa -->
-    <p class="text-lg">
-      <strong>Humedad Relativa:</strong> {{ props.weather.main.humidity }}%
-    </p>
+    <div class="flex items-center border-b border-gray-300 py-4">
+      <p class="text-lg">
+        <strong>Humedad Relativa:</strong> {{ props.weather.main.humidity }}%
+      </p>
+    </div>
     
     <!-- Visibilidad -->
-    <p class="text-lg">
-      <strong>Visibilidad:</strong> {{ props.weather.visibility / 1000 }} km
-    </p>
+    <div class="flex items-center border-b border-gray-300 py-4">
+      <p class="text-lg">
+        <strong>Visibilidad:</strong> {{ props.weather.visibility / 1000 }} km
+      </p>
+    </div>
     
     <!-- Información del viento -->
-    <p class="text-lg">
-      <strong>Viento:</strong> {{ props.weather.wind.speed }} m/s, dirección {{ props.weather.wind.deg }}°
-    </p>
+    <div class="flex items-center py-4">
+      <p class="text-lg">
+        <strong>Viento:</strong> {{ props.weather.wind.speed }} m/s, dirección {{ props.weather.wind.deg }}°
+      </p>
+    </div>
   </div>
 </template>

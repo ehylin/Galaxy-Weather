@@ -8,8 +8,8 @@
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col">
-      <header class="border border-b-scale-600">
+  <div class="min-h-screen bg-clima-bg bg-cover bg-no-repeat flex flex-col">
+      <header class="border bg-slate-100 border-gray-500 border-b-scale-100">
         <div>
           <div class="flex items-center justify-between mx-auto p-4 lg:max-w-6xl">
             <img :src="menu" alt="Menu" class="w-[20px] h-auto" />
