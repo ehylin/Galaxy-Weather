@@ -20,14 +20,12 @@ const weatherIconUrl = computed(() => {
   return iconCode ? `${baseUrl}${iconCode}.png` : '';
 });
 
-const showWeather = computed(() => {
-  return Object.keys(props.weather).length > 0;
-});
+
 
 </script>
 
 <template>
-  <div v-if="showWeather" class="px-6 py-4 bg-slate-100 border rounded-lg">
+  <div  class="px-6 py-4 bg-slate-100 border rounded-lg">
     <!-- Localidad consultada -->
     <h2 class="text-xl font-bold lg:text-center">Clima en: {{ props.weather.name }}</h2>
   

@@ -13,9 +13,6 @@ export default function useWeather() {
         weather.value = {};
         error.value = '';
         try {
-            if (city.trim() === '') {
-                throw new Error('City is required');
-            }
             // Get latitude and longitude
             const { lat, lon } = await getLatLon(city, key);
             // Get weather data
@@ -47,7 +44,6 @@ export default function useWeather() {
     };
 
   
-
     const showWeather = computed(() => {
         return Object.keys(weather.value).length > 0;
     });

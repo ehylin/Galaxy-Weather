@@ -38,7 +38,7 @@
   onMounted(async () => {
     await loadSavedCities();
     await fetchWeather({ city: defaultCity });
-});
+  });
 </script>
 
 <template>
@@ -64,6 +64,7 @@
         <Alert v-if="error">{{ error }}</Alert>
 
         <WeatherComponent 
+          v-if="showWeather" 
           :weather="weather" 
           :formatTemperature="formatTemperature" 
         />
