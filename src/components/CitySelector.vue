@@ -8,7 +8,9 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['select-city']);
+
+
+const emit = defineEmits(['select-city', 'clear-cities']);
 
 const handleCityClick = (city) => {
   emit('select-city', city);

@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { defineProps, computed } from 'vue';
 
 
 
@@ -13,6 +13,7 @@ const props = defineProps({
     required: true
   },
 });
+
 
 const weatherIconUrl = computed(() => {
   const baseUrl = 'http://openweathermap.org/img/w/';
