@@ -1,44 +1,35 @@
+import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
-import { useRouter } from 'vue-router';  
 import { getLatLon, getWeather } from '../services/ClientService';
 
-export default function useWeather() {
+export const useWeatherStore = defineStore('weather', () => {
     const weather = ref({});
     const loading = ref(false);
     const error = ref('');
     const savedCities = ref([]);
-    const router = useRouter();
-   
 
-    const getWeatherData = async ({ city }) => {
-   
+    const getWeatherData = async (city) => {
+     
         const key = import.meta.env.VITE_API_KEY;
         loading.value = true;
         weather.value = {};
         error.value = '';
         try {
-            if (typeof city !== 'string' || city.trim() === '') {
+            if (!city || typeof city !== 'string') {
                 throw new Error('City is required');
             }
-            // Get latitude and longitude
             const { lat, lon } = await getLatLon(city, key);
-            // Get weather data
             const result = await getWeather(lat, lon, key);
             weather.value = result;
+          
             saveCity(city);
- 
-            router.push({ path: `/${encodeURIComponent(city)}` });
-            
-        } catch {
-            console.log('error')
-            // if (city.trim() !== '') {
-            //     error.value = 'Ciudad No Encontrada';
-            // }
+        } catch (err) {
+        
+            error.value = err.message || 'Ciudad No Encontrada';
         } finally {
             loading.value = false;
         }
     };
-
 
     const saveCity = (city) => {
         const cities = JSON.parse(localStorage.getItem('savedCities')) || [];
@@ -48,7 +39,6 @@ export default function useWeather() {
             savedCities.value = cities;
         }
     };
-    
 
     const loadSavedCities = () => {
         savedCities.value = JSON.parse(localStorage.getItem('savedCities')) || [];
@@ -59,9 +49,7 @@ export default function useWeather() {
         savedCities.value = [];
     };
 
-    const showWeather = computed(() => {
-        return Object.keys(weather.value).length > 0;
-    });
+    const showWeather = computed(() => Object.keys(weather.value).length > 0);
 
     const formatTemperature = (temperature) => parseInt(temperature - 273.15);
 
@@ -76,4 +64,4 @@ export default function useWeather() {
         savedCities,
         loadSavedCities,
     };
-}
+});

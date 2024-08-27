@@ -1,7 +1,9 @@
 <script setup>
-    import { ref, onMounted } from 'vue';
+    import { defineProps, ref, onMounted, watch } from 'vue';
+    import { useRouter, useRoute } from 'vue-router';
     import { Alert, CitySelector,  Form, Heading,Loading, WeatherComponent} from '../components'
     import useWeather from '../composable/useWeather'
+    //import { useWeatherStore } from '../stores/useWeatherStore';
 
    
    const {  
@@ -17,29 +19,77 @@
         loadSavedCities
     } = useWeather()
 
+//   const weatherStore = useWeatherStore();
+// const { 
+//     clearCities,
+//     getWeatherData,
+//     weather,
+//     showWeather,
+//     formatTemperature,
+//     loading,
+//     error,
+//     savedCities,
+//     loadSavedCities 
+// } = weatherStore;
+
+    const router = useRouter();
+    const route = useRoute();
     const selectedCity = ref('');
 
-    const defaultCity = 'New York';
+    const defaultCity = '';
 
-      defineProps({
-        title: {
-            type: String
-        }
-    })
+    const props = defineProps({
+    title: {
+        type: String,
+        default: 'Buscador de clima'
+    },
+    cityParam: {
+        type: String,
+        default: ''  // Si no se proporciona una ciudad en la URL, se usará la ciudad por defecto
+    }
+});
 
-    const fetchWeather = async (search) => {
-     await getWeatherData({ city: search.city });
-    };
+    const fetchWeather = async (city) => {
+    if (city) {
+        await getWeatherData(city);
+    }
+};
+
+    //Para usar el formulario
+    // const fetchWeather = async (search) => {
+    //  await getWeatherData({ city: search.city });
+    // };
 
     const handleCitySelect = async (city) => {
     selectedCity.value = city;
-    await getWeatherData({ city });
+    await getWeatherData({city});
     };
 
+
+
+
+   //Para usar un parameto desde la url 
+  // Verificamos si hay un parámetro de ciudad en la URL
   onMounted(async () => {
-    await loadSavedCities();
-    await fetchWeather({ city: defaultCity });
+      await loadSavedCities();
+      const city = props.cityParam;  
+      selectedCity.value = city;
+      await fetchWeather({city});
   });
+
+  // Observamos cambios en el parámetro de la ciudad en la URL
+// watch(
+//     () => props.cityParam,
+//     async (newCity) => {
+//         console.log('watch detected new cityParam:', newCity);
+//         if (newCity) {
+//             selectedCity.value = newCity;
+//             await fetchWeather(newCity);
+//         }
+//     },
+//     { immediate: true }  // Agrega esto para que el `watch` se ejecute inmediatamente con el valor actual de `props.cityParam`
+// );
+
 
   const handleClearCities = () => {
     clearCities();
